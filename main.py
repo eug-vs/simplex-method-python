@@ -1,34 +1,31 @@
 import simplex
-from numpy import array, matrix
+from numpy import inf
 
 
 # Problem
-c = array([2, 1, 0, 0, 0])
+c = [4, 1]
 
-A = matrix([
-    [-1, 1, 1, 0, 0],
-    [1, -2, 0, 1, 0],
-    [4, 1, 0, 0, 1],
-])
-
-b = array([3, 6, 22])
-
-bounds = [
-    (0, 5),
-    (0, 4),
-    (0, 8),
-    (0, 14),
-    (0, 22)
+A = [
+    [-4, 3],
+    [2, 3],
 ]
 
-expected_result = [4.5, 4, 3.5, 9.5, 0]
+b = [12, 30]
 
+signs = [
+    -1,
+    -1
+]
 
-# Initial plan and basis
-x = [0, 0, 3, 6, 22]
-basis = { 2, 3, 4 }
+bounds = [
+    (0, 6),
+    (0, inf),
+]
 
+expected_result = [6, 6, 18, 0]
 
-result = simplex.solve(c, A, b, bounds, x, basis)
+problem = simplex.to_standart_form(c, A, b, signs, bounds)
+result = simplex.solve(*problem)
+
 assert all(result == expected_result), f"Result should be {expected_result}"
 
