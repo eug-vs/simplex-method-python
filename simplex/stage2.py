@@ -5,6 +5,7 @@ def stage2(c, A, b, bounds, indices, x, basis):
     print("\nSecond stage iteration:")
 
     # Build inverted basis
+    size = len(c)
     not_basis = []
     for j in indices:
         if j not in basis:
@@ -17,7 +18,7 @@ def stage2(c, A, b, bounds, indices, x, basis):
     print("u =", u)
 
     # Deltas
-    deltas = np.zeros(5)
+    deltas = np.zeros(size)
     for j in not_basis:
         deltas[j] = c[j] - u * A[:, j]
     print("deltas =", deltas)
@@ -43,7 +44,7 @@ def stage2(c, A, b, bounds, indices, x, basis):
     l_basis_solution = np.linalg.solve(A_basis, - A[:, j0] * sign)
     l_basis = list(reversed(np.asarray(l_basis_solution.reshape(-1))[0]))
 
-    l = np.zeros(5)
+    l = np.zeros(size)
     for index in indices:
         if index == j0:
             l[index] = sign
@@ -52,7 +53,7 @@ def stage2(c, A, b, bounds, indices, x, basis):
     print("l =", l)
 
     # Steps
-    steps = np.zeros(5)
+    steps = np.zeros(size)
     for j in indices:
         if j in basis:
             if l[j] > 0:
