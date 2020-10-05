@@ -31,7 +31,7 @@ def stage2(c, A, b, bounds, indices, x, basis):
             if deltas[j] < 0:
                 break
     else:
-        print("Optimal solution!\n")
+        print("\nOptimal solution:", x)
         return x
 
     # Choose j0
