@@ -1,31 +1,20 @@
 import simplex
-from numpy import inf
+from test_data import data
+from numpy import matrix
 
 
-# Problem
-c = [4, 1]
+for problem in data:
+    print("Problem:")
+    print("c =", problem["c"])
+    print(matrix(problem["A"]))
+    print("b =", problem["b"])
 
-A = [
-    [-4, 3],
-    [2, 3],
-]
+    expected_result = problem.pop("expected_result")
+    if "basis" not in problem:
+        problem = simplex.to_standart_form(**problem)
 
-b = [12, 30]
+    result = simplex.solve(**problem)
 
-signs = [
-    -1,
-    -1
-]
-
-bounds = [
-    (0, 6),
-    (0, inf),
-]
-
-expected_result = [6, 6, 18, 0]
-
-problem = simplex.to_standart_form(c, A, b, signs, bounds)
-result = simplex.solve(*problem)
-
-assert all(result == expected_result), f"Result should be {expected_result}"
+    assert all((result - expected_result) < 0.01), f"Result should be {expected_result}"
+    print("Result is correct!\n\n")
 
