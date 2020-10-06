@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def stage2(c, A, b, bounds, indices, x, basis):
+def iterate(c, A, b, bounds, indices, x, basis):
     print("\nSecond stage iteration:")
 
     # Build inverted basis
@@ -79,5 +79,5 @@ def stage2(c, A, b, bounds, indices, x, basis):
     x += l * steps[max_step_index]
     print("new plan =", x)
 
-    return stage2(c, A, b, bounds, indices, x, basis)
+    return iterate(c, A, b, bounds, indices, x, basis)
 

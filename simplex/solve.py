@@ -1,5 +1,5 @@
 from numpy import array, matrix, zeros
-from simplex.stage2 import stage2
+from simplex.iterate import iterate
 
 
 def solve(c, A, b, bounds, basis):
@@ -20,5 +20,5 @@ def solve(c, A, b, bounds, basis):
     for j in basis:
         x[j] = b_copy.pop()
 
-    return stage2(c, A, b, bounds, indices, x, basis)
+    return iterate(c, A, b, bounds, indices, x, basis)
 
