@@ -2,6 +2,17 @@ from numpy import append, eye
 
 
 def to_standart_form(c, A, b, bounds, signs):
+    """
+    Convert linear programming problem to the standart form.
+
+    Parameters:
+        c: Vector which defines objective function
+        A: Matrix - lefthand side of conditions system
+        b: Vector - righthand side of conditions system
+        bounds: Array of pairs (lower bound, upper bound) for each variable
+        signs: Array of signs of conditions system (1 for >, 0 for =, -1 for <)
+    """
+
     variables_count = len(c)
     equations_count = len(A)
     assert len(b) == equations_count, f"Righthand side should be provided for each equation"
