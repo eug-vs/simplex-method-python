@@ -1,7 +1,7 @@
 from numpy import inf
 
 
-data = [
+problems = [
     {
         "c": [4, 1],
         "A": [

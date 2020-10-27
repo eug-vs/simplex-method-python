@@ -1,9 +1,9 @@
 import simplex
-from test_data import data
+from test_data import problems
 from numpy import matrix
 
 
-for problem in data:
+for problem in problems:
     print("Problem:")
     print("c =", problem["c"])
     print(matrix(problem["A"]))
