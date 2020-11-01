@@ -24,19 +24,21 @@ def iterate(c, A, b, bounds, indices, x, basis):
     print("deltas =", deltas)
 
     # Halting condition
+    failing_indices = set()
     for j in not_basis:
         if x[j] == bounds[j][0]: # Lower bound
             if deltas[j] > 0:
-                break
+                failing_indices.add(j)
         if x[j] == bounds[j][1]: # Upper bound
             if deltas[j] < 0:
-                break
-    else:
+                failing_indices.add(j)
+
+    if not len(failing_indices):
         print("\nOptimal solution:", x)
         return x
 
     # Choose j0
-    j0 = j
+    j0 = np.argmax([abs(deltas[j]) if j in failing_indices else 0 for j in indices])
     print("Halting condition not met, keep going with j0 =", j0)
 
     # Directions
