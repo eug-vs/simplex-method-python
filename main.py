@@ -3,6 +3,8 @@ from test_data import problems
 from numpy import matrix
 
 
+simplex.enable_formatting()
+
 for problem in problems:
     print("Problem:")
     print("c =", problem["c"])
