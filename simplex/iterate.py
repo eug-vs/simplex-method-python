@@ -1,8 +1,12 @@
 import numpy as np
 
 
-def iterate(c, A, b, bounds, indices, x, basis):
-    print("\nSecond stage iteration:")
+def iterate(c, A, b, bounds, x, basis):
+    print("\nIteration:")
+    print("basis:", basis)
+    print("plan:", x)
+
+    indices = range(len(c))
 
     # Build inverted basis
     size = len(c)
@@ -35,7 +39,7 @@ def iterate(c, A, b, bounds, indices, x, basis):
 
     if not len(failing_indices):
         print("\nOptimal solution:", x)
-        return x
+        return x, basis
 
     # Choose j0
     j0 = np.argmax([abs(deltas[j]) if j in failing_indices else 0 for j in indices])
@@ -75,11 +79,9 @@ def iterate(c, A, b, bounds, indices, x, basis):
     if max_step_index in basis:
         basis.remove(max_step_index)
         basis.add(j0)
-    print("new basis =", basis)
 
     # New plan
     x += l * steps[max_step_index]
-    print("new plan =", x)
 
-    return iterate(c, A, b, bounds, indices, x, basis)
+    return iterate(c, A, b, bounds, x, basis)
 

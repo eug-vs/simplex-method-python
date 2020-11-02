@@ -10,8 +10,6 @@ for problem in problems:
     print("b =", problem["b"])
 
     expected_result = problem.pop("expected_result")
-    if "basis" not in problem:
-        problem = simplex.to_standart_form(**problem)
 
     result = simplex.solve(**problem)
 

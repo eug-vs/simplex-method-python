@@ -1,17 +1,17 @@
 from numpy import array, matrix, zeros
 from simplex.iterate import iterate
+from simplex.first_stage import first_stage
 
 
-def solve(c, A, b, bounds, basis):
+def solve(c, A, b, bounds):
     """
-    Solve linear programming problem with a simplex method.
+    Solve linear programming problem with a two-stage simplex method.
 
     Parameters:
         c: Vector which defines objective function
         A: Matrix - lefthand side of conditions system
         b: Vector - righthand side of conditions system
         bounds: Array of pairs (lower bound, upper bound) for each variable
-        basis: Set of indices of artificial variables
     """
 
     c = array(c)
@@ -20,14 +20,9 @@ def solve(c, A, b, bounds, basis):
     assert A.shape[1] == size, f"Matrix A should have width {size}"
     assert len(bounds) == size, "Bounds should be provided for each variable"
 
-    indices = range(size)
+    print("\n\nFIRST STAGE")
+    x, basis = first_stage(c, A, b, bounds)
 
-    # Build initial plan
-    x = zeros(size)
-    b_copy = list(b.copy())
-    b_copy.reverse()
-    for j in basis:
-        x[j] = b_copy.pop()
-
-    return iterate(c, A, b, bounds, indices, x, basis)
+    print("\n\nSECOND STAGE")
+    return iterate(c, A, b, bounds, x[:size], basis)[0]
 
